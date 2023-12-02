@@ -90,7 +90,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #000;
-    font-family: 'Courier New', monospace;
+    font-family: consolas, 'Courier New', monospace;
     font-size: 14pt;
     padding: 20px;
     box-sizing: border-box;
@@ -113,7 +113,7 @@ p {
     background: none;
     outline: none;
     font-size: 16pt;
-    font-family: 'Courier New', monospace;
+    font-family: consolas, 'Courier New', monospace;
 }
 
 input,
