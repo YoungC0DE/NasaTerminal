@@ -103,6 +103,7 @@ p {
 .input {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 10px;
 }
 
@@ -110,7 +111,7 @@ p {
     border: none;
     background: none;
     outline: none;
-    font-size: 16pt;
+    font-size: 14pt;
     font-family: consolas, 'Courier New', monospace;
 }
 
