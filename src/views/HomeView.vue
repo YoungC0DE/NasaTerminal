@@ -48,11 +48,9 @@ export default {
 
             this.headerText = headerText
         },
-
         focusOnInput() {
             this.$refs.inputText.focus()
         },
-
         run() {
             console.log('test')
         }
