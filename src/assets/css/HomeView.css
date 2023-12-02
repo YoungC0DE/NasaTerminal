@@ -71,10 +71,8 @@ input,
   background-color: #333;
 }
 
-.commands_list {
-  width: 50%;
-  text-align: left;
-  margin-bottom: 2rem;
+.params li {
+  list-style: '-';
 }
 
 @media (max-width: 600px) {
@@ -87,9 +85,5 @@ input,
   .screen {
     font-size: 1rem;
     padding: 1rem;
-  }
-
-  .commands_list {
-    width: 100%;
   }
 }
