@@ -1,8 +1,15 @@
 <template>
     <div class="content">
-        <div class="computer" @click="focusOnInput" @keypress.enter="run">
+        <div class="computer">
             <div class="monitor">
-                <div class="screen">
+                <div class="header">
+                    <div class="actions">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="screen" @click="focusOnInput" @keypress.enter="run">
                     <p v-html="headerText"></p>
                     <div class="history" v-for="(data, index) in history" :key="index">
                         <div class="input">
@@ -14,7 +21,7 @@
                         </div>
                         <div v-else>
                             The command <b>{{ data }}</b> not exist.
-                            <br>if it appears in the list, it will be a future feature
+                            <br>if it appears in the helper list, it will be a future feature
                             <br><br>
                         </div>
                     </div>
