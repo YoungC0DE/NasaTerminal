@@ -1,35 +1,18 @@
-# nasa-terminal
+# Nasa Terminal :computer:
 
-This template should help get you started developing with Vue 3 in Vite.
+> Common calculator in its functionality, 
+> however it has an intuitive and modern design.
 
-## Recommended IDE Setup
+Technologies used:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- HTML5,
+- CSS3,
+- VueJs.
 
-## Customize configuration
+## 
+<div align='center'>
+<img src="https://github.com/YoungC0DE/calculadoraWeb/blob/main/Assets/forGit.png" width="300">
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Access here: [NasaTerminal](https://youngc0de.github.io/SimpleCalculator/).
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+</div>
