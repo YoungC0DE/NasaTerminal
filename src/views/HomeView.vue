@@ -1,12 +1,14 @@
 <template>
-    <div class="external-screen">
-        <div class="terminal-screen">
-            <img src="@/assets/frame.png" class="frame">
-            <img src="@/assets/scanlines.png" class="scanlines">
-            <div class="terminal-info">
-                <p>Nasa terminal created in 2023 by YoungC0DE</p>
-                <p>In this terminal you can get some infos about nasa by the Nasa-Api</p>
-                <p>Comands:</p>
+    <div class="content">
+        <div class="computer" @click="focusOnInput" @keypress.enter="run">
+            <div class="monitor">
+                <div class="screen">
+                    <p v-html="headerText"></p>
+                    <div class="input">
+                        <p>{{ agent }}</p>
+                        <input type="text" ref="inputText" v-model="input" maxlength="15" max="15">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -16,49 +18,120 @@
 export default {
     data() {
         return {
+            headerText: '',
+            input: '',
+            agent: 'home@root:~#'
+        }
+    },
+    mounted() {
+        this.loadHeaderText();
+    },
+    methods: {
+        loadHeaderText() {
+            let refs = {
+                Owner: 'https://github.com/YoungC0DE',
+                chatGPT: 'https://chat.openai.com',
+                Repository: 'https://github.com/YoungC0DE/NasaTerminal'
+            }
 
+            let headerText = 'Welcome to Nasa Terminal'
+            headerText += '<br><br>'
+            headerText += `Created by: <a href="${refs.Owner}" style="color: #00ff00" target="_blank">${refs.Owner}</a>`
+            headerText += `<br>Template by: <a href="${refs.chatGPT}" style="color: #00ff00" target="_blank">${refs.chatGPT}</a>`
+            headerText += `<br>Repository: <a href="${refs.Repository}" style="color: #00ff00" target="_blank">${refs.Repository}</a>`
+            headerText += '<br><br>'
+            headerText += 'Commands:'
+            headerText += '<br> - Show'
+            headerText += '<br> - Clear'
+            headerText += '<br> - Open'
+            headerText += '<br><br>'
+
+            this.headerText = headerText
+        },
+
+        focusOnInput() {
+            this.$refs.inputText.focus()
+        },
+
+        run() {
+            console.log('test')
         }
     }
 }
 </script>
 
 <style scoped>
-.external-screen {
-    height: 100vh;
-    width: 100%;
+.content {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: #1a1a1a;
 }
 
-.terminal-screen {
+.computer {
+    width: 75%;
+    height: 75%;
+    background-color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.monitor {
+    width: 100%;
+    height: 100%;
     position: relative;
+    overflow: hidden;
+}
+
+.screen {
     width: 100%;
     height: 100%;
-    background-color: black;
-    color: lime;
-    font-family: monospace;
-    font-size: 200%;
-    padding: 4% 8%;
+    background-color: #000;
+    font-family: 'Courier New', monospace;
+    font-size: 14pt;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    line-height: 1.2;
 }
 
-.frame,
-.scanlines {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
+p {
+    margin: 0;
 }
 
-.frame {
-    z-index: 2;
+.input {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
-.scanlines {
-    z-index: 1;
-    opacity: 0.6;
-    filter: contrast(.3);
+.input input {
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16pt;
+    font-family: 'Courier New', monospace;
+}
+
+input,
+.screen {
+    color: #00ff00;
+}
+
+/* Estilizar a barra de rolagem do terminal */
+.screen::-webkit-scrollbar {
+    width: 12px;
+}
+
+.screen::-webkit-scrollbar-thumb {
+    background-color: #00ff00;
+    border-radius: 10px;
+}
+
+.screen::-webkit-scrollbar-track {
+    background-color: #333;
 }
 </style>
