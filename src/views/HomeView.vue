@@ -104,8 +104,6 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #000;
-    font-family: consolas, 'Courier New', monospace;
-    font-size: 14pt;
     padding: 20px;
     box-sizing: border-box;
     overflow-y: scroll;
@@ -127,14 +125,14 @@ p {
     border: none;
     background: none;
     outline: none;
-    font-size: 14pt;
-    font-family: consolas, 'Courier New', monospace;
     cursor: default
 }
 
 input,
 .screen {
     color: #00ff00;
+    font-size: 14pt;
+    font-family: consolas, 'Courier New', monospace;
 }
 
 /* Estilizar a barra de rolagem do terminal */
@@ -149,5 +147,17 @@ input,
 
 .screen::-webkit-scrollbar-track {
     background-color: #333;
+}
+
+@media (max-width: 600px) {
+    .computer {
+        width: 95%;
+        height: 50%;
+    }
+
+    input,
+    .screen {
+        font-size: 1rem;
+    }
 }
 </style>
