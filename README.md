@@ -1,7 +1,7 @@
 # Nasa Terminal :computer:
 
-> Common calculator in its functionality, 
-> however it has an intuitive and modern design.
+> Created to simulate a terminal, 
+> With this terminal is possible get data from Nasa API.
 
 Technologies used:
 
@@ -11,8 +11,7 @@ Technologies used:
 
 ## 
 <div align='center'>
-<img src="https://github.com/YoungC0DE/calculadoraWeb/blob/main/Assets/forGit.png" width="300">
+<img src="https://github.com/YoungC0DE/NasaTerminal/assets/68437256/59966ce0-5901-47a3-9fa2-e3b35feafd5a" width="500">
 
 Access here: [NasaTerminal](https://youngc0de.github.io/SimpleCalculator/).
-
 </div>
