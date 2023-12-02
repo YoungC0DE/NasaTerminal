@@ -4,9 +4,13 @@
             <div class="monitor">
                 <div class="screen">
                     <p v-html="headerText"></p>
+                    <div class="history input" v-for="(data, index) in history" :key="index">
+                        <p>{{ agent }}</p>
+                        <div>{{ data }}</div>
+                    </div>
                     <div class="input">
                         <p>{{ agent }}</p>
-                        <input type="text" ref="inputText" v-model="input" maxlength="15" max="15">
+                        <input type="text" ref="inputText" v-model="input" :maxlength="maxlengthInput" :max="maxlengthInput">
                     </div>
                 </div>
             </div>
@@ -20,7 +24,9 @@ export default {
         return {
             headerText: '',
             input: '',
-            agent: 'home@root:~#'
+            agent: 'home@root:~#',
+            history: [],
+            maxlengthInput: 15
         }
     },
     mounted() {
@@ -52,7 +58,17 @@ export default {
             this.$refs.inputText.focus()
         },
         run() {
-            console.log('test')
+            this.history.push(this.input)
+            this.input = ''
+        },
+    },
+    watch: {
+        'input': {
+            handler(newVal, oldval) {
+                if (newVal.length >= this.maxlengthInput) {
+                    return this.input = oldval;
+                }
+            }
         }
     }
 }
@@ -113,6 +129,7 @@ p {
     outline: none;
     font-size: 14pt;
     font-family: consolas, 'Courier New', monospace;
+    cursor: default
 }
 
 input,
