@@ -75,10 +75,14 @@ input,
   list-style: '-';
 }
 
+.command-output {
+  margin: 2rem 1rem;
+}
+
 @media (max-width: 600px) {
   .computer {
     width: 95%;
-    height: 50%;
+    height: 90%;
   }
 
   input,

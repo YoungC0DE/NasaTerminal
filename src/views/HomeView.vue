@@ -4,17 +4,23 @@
             <div class="monitor">
                 <HeaderComponent />
                 <div class="screen" @click="focusOnInput" @keypress.enter="run" ref="autoScroll">
-                    <p v-html="headerText"></p>
+                    <IntroHeader />
                     <div class="history" v-for="(data, index) in history" :key="index">
                         <div class="input">
                             <p>{{ agent }}</p>
                             <div>{{ data }}</div>
                         </div>
-                        <div v-if="data == helpCommand">
-                            <CommandList />
+                        <div v-if="resolveData(data, helpCommand)" class="command-output">
+                            <HelpCommand />
                         </div>
-                        <div v-else-if="data">
-                            <UnknowCommandReport :textInput="data" />
+                        <div v-if="resolveData(data, aboutCommand)" class="command-output">
+                            <AboutCommand :command="data.trim()" />
+                        </div>
+                        <div v-if="resolveData(data, whoamiCommand)" class="command-output">
+                            <WhoamiCommand />
+                        </div>
+                        <div v-if="getUnknowInput(data)" class="command-output">
+                            <UnknowCommandReport :textInput="data.trim()" />
                         </div>
                     </div>
                     <div class="input">
@@ -28,41 +34,31 @@
 </template>
 
 <script>
-import CommandList from '@/assets/components/CommandList.vue';
-import { HELP_COMMAND, CLEAR_COMMAND, ABOUT_COMMAND, REFERENCES } from '@/core/helpers/constants.js';
-import HeaderComponent from '../assets/components/HeaderComponent.vue';
-import UnknowCommandReport from '../assets/components/UnknowCommandReport.vue';
+import HelpCommand from '@/assets/components/HelpCommand.vue';
+import { HELP_COMMAND, CLEAR_COMMAND, ABOUT_COMMAND, WHOAMI_COMMAND } from '@/core/helpers/constants.js';
+import HeaderComponent from '@/assets/components/HeaderComponent.vue';
+import UnknowCommandReport from '@/assets/components/UnknowCommandReport.vue';
+import AboutCommand from '@/assets/components/AboutCommand.vue';
+import WhoamiCommand from '@/assets/components/WhoamiCommand.vue';
+import IntroHeader from '@/assets/components/IntroHeader.vue';
 
 export default {
-    components: { CommandList, HeaderComponent, UnknowCommandReport },
+    components: { HelpCommand, HeaderComponent, UnknowCommandReport, AboutCommand, IntroHeader, WhoamiCommand },
     data() {
         return {
-            headerText: '',
             input: '',
             agent: 'nasa@root:~#',
             history: [],
             maxlengthInput: 15,
-            helpCommand: HELP_COMMAND
+            helpCommand: HELP_COMMAND,
+            aboutCommand: ABOUT_COMMAND,
+            whoamiCommand: WHOAMI_COMMAND,
         };
     },
     mounted() {
-        this.loadHeaderText();
+        this.focusOnInput()
     },
     methods: {
-        loadHeaderText() {
-            let linkSetup = 'style="color: var(--text-color)" target="_blank"';
-
-            this.headerText = 'Welcome to Nasa Terminal'
-                + '<br><br>'
-                + `Created by: <a href="${REFERENCES.Owner}" ${linkSetup}>${REFERENCES.Owner}</a>`
-                + `<br>Template by: <a href="${REFERENCES.chatGPT}" ${linkSetup}>${REFERENCES.chatGPT}</a>`
-                + `<br>Repository: <a href="${REFERENCES.Repository}" ${linkSetup}>${REFERENCES.Repository}</a>`
-                + `<br>Nasa API: <a href="${REFERENCES.NasaAPI}" ${linkSetup}>${REFERENCES.NasaAPI}</a>`
-                + '<br><br>'
-                + 'Type <b>/help</b> to get the list of commands'
-                + '<br>Type <b>/clear</b> to clear the terminal'
-                + '<br><br>';
-        },
         focusOnInput() {
             this.$refs.inputText.focus();
         },
@@ -72,22 +68,52 @@ export default {
         },
         run() {
             this.$nextTick(this.autoScroll())
-            let input = this.input.toLowerCase();
+            let input = this.input;
 
-            if (input == CLEAR_COMMAND) {
+            if (input.toLowerCase() == CLEAR_COMMAND) {
                 this.input = '';
-                return this.history = [];
+                this.history = [];
+                return
             }
 
             this.history.push(input);
             this.input = '';
         },
+        resolveData(data, expected) {
+            let newData = data.trim().split(' ')
+            newData = newData.shift();
+            newData = newData.toLowerCase();
+
+            if (newData === expected) {
+                return true
+            }
+
+            return false
+        },
+        getUnknowInput(data) {
+            let commands = [
+                HELP_COMMAND,
+                ABOUT_COMMAND,
+                CLEAR_COMMAND,
+                WHOAMI_COMMAND
+            ]
+
+            if (
+                commands.includes(data.trim()) ||
+                !data.trim()
+            ) {
+                return false
+            }
+
+            return true
+        }
     },
     watch: {
         'input': {
             handler(newVal, oldval) {
                 if (newVal.length >= this.maxlengthInput) {
-                    return this.input = oldval;
+                    this.input = oldval;
+                    return
                 }
             }
         }

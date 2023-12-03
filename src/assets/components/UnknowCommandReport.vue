@@ -1,9 +1,12 @@
 <template>
     <div>
-        <br>
-        The command <b>{{ textInput }}</b> not exist.
-        <br>if it appears in the helper list, it will be a future feature
-        <br><br>
+        <div v-if="textInput == ''">
+            Incorrect argument. Type <b>/about</b> + <i>command</i>
+        </div>
+        <div v-else>
+            The command <b>{{ textInput }}</b> not exist.<br>
+            if it appears in the helper list, it will be a future feature
+        </div>
     </div>
 </template>
 

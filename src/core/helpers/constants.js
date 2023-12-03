@@ -1,6 +1,7 @@
 export const HELP_COMMAND = '/help'
 export const ABOUT_COMMAND = '/about'
 export const CLEAR_COMMAND = '/clear'
+export const WHOAMI_COMMAND = '/whoami'
 
 export const REFERENCES = {
   Owner: 'https://github.com/YoungC0DE',
