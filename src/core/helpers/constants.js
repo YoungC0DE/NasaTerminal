@@ -9,6 +9,12 @@ export const REFERENCES = {
   NasaAPI: 'https://api.nasa.gov/'
 }
 
+export const THEMES = [
+  {id: 1, name: 'green'},
+  {id: 2, name: 'yellow'},
+  {id: 3, name: 'red'},
+]
+
 export const APOD_COMMAND = 'APOD'
 export const ASTEROIDS_FEED_COMMAND = 'ASTEROIDS_FEED'
 export const ASTEROIDS_LOOKUP_COMMAND = 'ASTEROIDS_LOOKUP'

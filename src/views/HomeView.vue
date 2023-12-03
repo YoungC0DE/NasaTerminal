@@ -14,10 +14,7 @@
                             <CommandList />
                         </div>
                         <div v-else-if="data">
-                            <br>
-                            The command <b>{{ data }}</b> not exist.
-                            <br>if it appears in the helper list, it will be a future feature
-                            <br><br>
+                            <UnknowCommandReport :textInput="data" />
                         </div>
                     </div>
                     <div class="input">
@@ -34,8 +31,10 @@
 import CommandList from '@/assets/components/CommandList.vue';
 import { HELP_COMMAND, CLEAR_COMMAND, ABOUT_COMMAND, REFERENCES } from '@/core/helpers/constants.js';
 import HeaderComponent from '../assets/components/HeaderComponent.vue';
+import UnknowCommandReport from '../assets/components/UnknowCommandReport.vue';
 
 export default {
+    components: { CommandList, HeaderComponent, UnknowCommandReport },
     data() {
         return {
             headerText: '',
@@ -51,7 +50,7 @@ export default {
     },
     methods: {
         loadHeaderText() {
-            let linkSetup = 'style="color: #00ff00" target="_blank"';
+            let linkSetup = 'style="color: var(--text-color)" target="_blank"';
 
             this.headerText = 'Welcome to Nasa Terminal'
                 + '<br><br>'
@@ -93,7 +92,6 @@ export default {
             }
         }
     },
-    components: { CommandList, HeaderComponent }
 }
 </script>
 

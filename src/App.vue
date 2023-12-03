@@ -15,7 +15,21 @@ import { RouterView } from 'vue-router'
   box-sizing: border-box;
 }
 
-.c-body {
-  background: url('@/assets/matrix_animation.gif');
+:root {
+  --content-bg: #1a1a1a;
+  --computer-bg: #333;
+  --screen-bg: #000
+}
+
+html[data-theme="green"] {
+  --text-color: #27c93f;
+}
+
+html[data-theme="yellow"] {
+  --text-color: #ffbd2e;
+}
+
+html[data-theme="red"] {
+  --text-color: #ff5f56;
 }
 </style>

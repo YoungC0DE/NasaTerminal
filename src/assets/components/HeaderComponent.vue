@@ -1,17 +1,27 @@
 <template>
     <div class="header">
         <div class="actions">
-            <div v-for="(item) in number_buttons" :key="item"></div>
+            <div v-for="(item) in number_buttons" :key="item" @click="changeTheme(item)">
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { THEMES } from '@/core/helpers/constants';
 export default {
     name: 'HeaderComponent',
     data() {
         return {
             number_buttons: 3
+        }
+    },
+    methods: {
+        changeTheme(id) {
+            let theme = THEMES.find(value => value.id == id);
+
+            let html = document.querySelector('html');
+            html.setAttribute('data-theme', theme.name);
         }
     }
 }
