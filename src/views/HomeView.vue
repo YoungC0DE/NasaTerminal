@@ -2,13 +2,7 @@
     <div class="content">
         <div class="computer">
             <div class="monitor">
-                <div class="header">
-                    <div class="actions">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
+                <HeaderComponent />
                 <div class="screen" @click="focusOnInput" @keypress.enter="run" ref="autoScroll">
                     <p v-html="headerText"></p>
                     <div class="history" v-for="(data, index) in history" :key="index">
@@ -39,6 +33,7 @@
 <script>
 import CommandList from '@/assets/components/CommandList.vue';
 import { HELP_COMMAND, CLEAR_COMMAND, ABOUT_COMMAND, REFERENCES } from '@/core/helpers/constants.js';
+import HeaderComponent from '../assets/components/HeaderComponent.vue';
 
 export default {
     data() {
@@ -84,7 +79,7 @@ export default {
                 this.input = '';
                 return this.history = [];
             }
-            
+
             this.history.push(input);
             this.input = '';
         },
@@ -98,7 +93,7 @@ export default {
             }
         }
     },
-    components: { CommandList }
+    components: { CommandList, HeaderComponent }
 }
 </script>
 
