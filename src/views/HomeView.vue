@@ -9,17 +9,18 @@
                         <div></div>
                     </div>
                 </div>
-                <div class="screen" @click="focusOnInput" @keypress.enter="run">
+                <div class="screen" @click="focusOnInput" @keypress.enter="run" ref="autoScroll">
                     <p v-html="headerText"></p>
                     <div class="history" v-for="(data, index) in history" :key="index">
                         <div class="input">
                             <p>{{ agent }}</p>
                             <div>{{ data }}</div>
                         </div>
-                        <div v-if="data.toLowerCase() == helpCommand">
+                        <div v-if="data == helpCommand">
                             <CommandList />
                         </div>
-                        <div v-else>
+                        <div v-else-if="data">
+                            <br>
                             The command <b>{{ data }}</b> not exist.
                             <br>if it appears in the helper list, it will be a future feature
                             <br><br>
@@ -71,12 +72,20 @@ export default {
         focusOnInput() {
             this.$refs.inputText.focus();
         },
+        autoScroll() {
+            const container = this.$refs.autoScroll;
+            container.scrollTop = container.scrollHeight;
+        },
         run() {
-            if (this.input == CLEAR_COMMAND) {
+            this.$nextTick(this.autoScroll())
+            let input = this.input.toLowerCase();
+
+            if (input == CLEAR_COMMAND) {
                 this.input = '';
                 return this.history = [];
             }
-            this.history.push(this.input);
+            
+            this.history.push(input);
             this.input = '';
         },
     },
