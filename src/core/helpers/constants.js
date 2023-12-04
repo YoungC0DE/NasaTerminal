@@ -24,9 +24,9 @@ export const COMMANDS = [
   {
     name: APOD_COMMAND,
     details:
-      'This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other applications',
+      'This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other applications.',
     params: [
-      { name: 'date', format: 'YYYY-MM-DD', description: 'The date of the APOD image to retrieve' },
+      { name: 'date', format: 'YYYY-MM-DD', description: 'The date of the APOD image to retrieve.' },
       {
         name: 'start_date',
         format: 'YYYY-MM-DD',
@@ -66,14 +66,13 @@ export const COMMANDS = [
   },
   {
     name: ASTEROIDS_LOOKUP_COMMAND,
-    details: 'Retrieve a list of Asteroids based on their closest approach date to Earth',
+    details: 'Lookup a specific Asteroid based on its NASA JPL small body (SPK-ID) ID',
     params: [
       {
-        name: 'start_date',
-        format: 'YYYY-MM-DD',
-        description: 'Starting date for asteroid search'
+        name: 'asteroid_id',
+        format: 'int',
+        description: 'Asteroid SPK-ID correlates to the NASA JPL small body'
       },
-      { name: 'end_date', format: 'YYYY-MM-DD', description: 'Ending date for asteroid search' }
     ]
-  }
+  },
 ]
