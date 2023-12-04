@@ -1,18 +1,16 @@
 <template>
     <div class="into-header">
         <p style="margin-bottom: 1rem;">
-            <DecoratorLine :number="title.length" />
-            {{ title }}
-            <DecoratorLine :number="title.length" />
+            <DecoratorLine :number="title.length" :mode="'side'">
+                {{ title }}
+            </DecoratorLine>
         </p>
         <p class="intro">
         <div>
             <IcNasa />
         </div>
         <div class="intro-text">
-            <span v-for="(char, index) in tmpIntroText" :key="index">
-                {{ char }}
-            </span>
+            {{ tmpIntroText }}
         </div>
         </p>
         <div style="margin-top: 1rem;">
@@ -40,7 +38,7 @@ export default {
             helpCommand: HELP_COMMAND,
             clearCommand: CLEAR_COMMAND,
             whoamiCommand: WHOAMI_COMMAND,
-            caractersToBreak: ['.', ',']
+            caractersToBreak: ['.', ','],
         };
     },
     mounted() {
@@ -55,7 +53,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 
