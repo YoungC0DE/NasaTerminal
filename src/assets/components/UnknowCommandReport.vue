@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="textInput == ''">
-            Incorrect argument. Type <b>/about</b> + <i>command</i>
+            Incorrect argument.
         </div>
         <div v-else>
             The command <b>{{ textInput }}</b> not exist.<br>
@@ -14,7 +14,7 @@
 export default {
     name: 'UnknowCommandReport',
     props: {
-        textInput: { type: String, required: true }
+        textInput: { type: String, default: '' },
     }
 }
 </script>

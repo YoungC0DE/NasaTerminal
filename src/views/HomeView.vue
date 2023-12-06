@@ -81,16 +81,21 @@ export default {
         },
         resolveData(data, expected) {
             let newData = data.trim().split(' ')
-            newData = newData.shift();
-            newData = newData.toLowerCase();
+            newData = newData[0] ?? ''
 
-            if (newData === expected) {
+            if (newData.toLowerCase() === expected) {
                 return true
             }
 
             return false
         },
-        getUnknowInput(data) {
+        getUnknowInput(data = '') {
+            if (data == '') {
+                return false
+            }
+
+            let newData = data.trim().split(' ')
+
             let commands = [
                 HELP_COMMAND,
                 ABOUT_COMMAND,
@@ -98,10 +103,7 @@ export default {
                 WHOAMI_COMMAND
             ]
 
-            if (
-                commands.includes(data.trim()) ||
-                !data.trim()
-            ) {
+            if (commands.includes(newData[0])) {
                 return false
             }
 

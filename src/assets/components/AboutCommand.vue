@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="unknowCommand">
-            <UnknowCommandReport :textInput="invalidComand" />
+            <UnknowCommandReport :textInput="invalidComand"/>
         </div>
         <table class="params_list" v-else>
             <thead>
@@ -35,49 +35,36 @@ export default {
             params: [],
             unknowCommand: false,
             invalidComand: '',
-            arrayCommand: []
         };
     },
     mounted() {
-        this.arrayCommand = this.command.split(' ');
-
-        this.validateData()
-
-        if (this.unknowCommand) {
-            return;
-        }
-
         this.getParam();
     },
     methods: {
-        resolveCommand() {
-            this.arrayCommand.shift()
-            let command = this.arrayCommand.shift();
-
-            return command;
-        },
         getParam() {
-            let command = this.resolveCommand().toUpperCase()
-            let paramsByCommand = COMMANDS.find(value => value.name === command);
+            let parsedCommand = this.command.split(' ')
 
-            if (paramsByCommand == undefined) {
-                this.invalidComand = command
-                return this.unknowCommand = true
+            const { command, argument } = {
+                command: parsedCommand[0] || '',
+                argument: parsedCommand[1] || ''
             }
 
-            this.params = paramsByCommand.params;
+            this.invalidComand = argument
+
+            if (command == '' || argument == '') {
+                this.unknowCommand = true
+                return;
+            }
+
+            const { params } = COMMANDS.find(value => value.name === argument.toUpperCase());
+
+            if (params == undefined) {
+                this.unknowCommand = true
+                return
+            }
+
+            this.params = params;
         },
-        validateData() {
-            let arrayCommand = this.arrayCommand;
-            arrayCommand = arrayCommand.shift()
-
-            if (
-                this.arrayCommand.length === 0 ||
-                arrayCommand.length === 0
-            ) {
-                return this.unknowCommand = true
-            }
-        }
     },
     components: { UnknowCommandReport }
 }
