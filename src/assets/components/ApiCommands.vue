@@ -4,7 +4,7 @@
         <b v-if="requestError.show">
             {{ requestError.msg }}
         </b>
-        <div v-if="apiResult.length > 0" class="api-commands">
+        <div v-if="apiResult.length > 0" :class="hasMultipleResults ? '' : 'api-commands'">
             <div v-if="hasMultipleResults">
                 <div v-for="(data, index) in apiResult" :key="index" class="api-commands" style="margin-bottom: 2rem;">
                     <DecoratorLine :caracter="'-'" />
