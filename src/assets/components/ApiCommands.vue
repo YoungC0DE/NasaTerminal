@@ -1,11 +1,14 @@
 <template>
-    <div v-if="requestError">
-        tudo errado
-    </div>
-    <div class="api-commands" v-else>
-        <span v-for="(data, index) in apiResult" :key="index">
-            <b>{{ data.value }}:</b> {{ data.text }}
-        </span>
+    <div>
+        <div v-if="requestError.show">
+            Resquest error: {{ requestError.msg }}
+        </div>
+        <span v-html="loadRequestText"></span>
+        <div class="api-commands" v-if="apiResult.length > 0">
+            <span v-for="(data, index) in apiResult" :key="index">
+                <b>{{ data.value }}:</b> {{ data.text }}
+            </span>
+        </div>
     </div>
 </template>
 
@@ -16,6 +19,7 @@ import {
     ASTEROIDS_LOOKUP_COMMAND
 } from '@/core/helpers/constants.js';
 import ApiService from '@/core/services/api.service.js'
+import { sleep, randomNumber } from "@/core/helpers/utils.js"
 
 export default {
     name: 'ApiCommands',
@@ -26,14 +30,42 @@ export default {
     data() {
         return {
             apiResult: [],
-            requestError: false
+            startRequest: false,
+            loadRequestText: '',
+            requestError: {
+                show: false,
+                msg: ''
+            }
         }
     },
     mounted() {
         this.getApiData()
     },
     methods: {
-        getApiData() {
+        async animationText() {
+            let requestText = [
+                'Start request for Nasa API...<br>',
+                '...<br>',
+                'Trying to Authenticate ....<br>',
+                '...<br>',
+                'Autenticate sucessful ...<br>',
+                '...<br>',
+                'Fetching data ...<br>',
+                '...<br>',
+                '..<br>',
+                '<br><br>'
+            ]
+
+            for (let lineText of requestText) {
+                let randomTime = randomNumber(500, 2000)
+                await sleep(randomTime)
+                for (let text of lineText) {
+                    await sleep(10)
+                    this.loadRequestText += text
+                }
+            }
+        },
+        async getApiData() {
             var parsedCommand = this.command.split('--')
             var command = parsedCommand.shift().trim().toUpperCase()
             var endpoint = ''
@@ -58,6 +90,9 @@ export default {
                 endpoint = 'AsteroidsLookup'
             }
 
+            this.startRequest = true
+            await this.animationText()
+
             ApiService[endpoint](params)
                 .then(({ data }) => {
                     if (!data) {
@@ -74,7 +109,10 @@ export default {
                     }
                 })
                 .catch(error => {
-                    this.requestError = true
+                    this.requestError = {
+                        show: true,
+                        msg: error
+                    }
                 })
         }
     }
