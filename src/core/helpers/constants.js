@@ -93,3 +93,8 @@ export const REQUEST_TEXT_ANIME = [
   '..<br>',
   '<br>'
 ]
+
+export const INTRO_TEXT =
+  'This system was made with the purpose of getting some information about nasa, using nasa API. All the information was available for free by nasa.'
+export const INTRO_TITLE = 'Welcome to Nasa Terminal'
+export const WRONG_MGS_TEXT = 'Incorrenct request'

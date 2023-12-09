@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { HELP_COMMAND, CLEAR_COMMAND, WHOAMI_COMMAND } from "@/core/helpers/constants.js"
+import { HELP_COMMAND, CLEAR_COMMAND, WHOAMI_COMMAND, INTRO_TEXT, INTRO_TITLE } from "@/core/helpers/constants.js"
 import DecoratorLine from "@/assets/components/DecoratorLine.vue";
 import IcNasa from "@/assets/icons/ic-nasa.vue";
 import { sleep } from "@/core/helpers/utils.js"
@@ -32,9 +32,8 @@ export default {
     components: { DecoratorLine, IcNasa },
     data() {
         return {
-            introText: 'This system was made with the purpose of getting some information about nasa, using nasa API. All the information was available for free by nasa.',
             tmpIntroText: '',
-            title: 'Welcome to Nasa Terminal',
+            title: INTRO_TITLE,
             helpCommand: HELP_COMMAND,
             clearCommand: CLEAR_COMMAND,
             whoamiCommand: WHOAMI_COMMAND,
@@ -46,7 +45,7 @@ export default {
     },
     methods: {
         async animationText() {
-            for (let text of this.introText) {
+            for (let text of INTRO_TEXT) {
                 let second = text == ' ' ? 100 : 50
                 await sleep(second)
                 this.tmpIntroText += text

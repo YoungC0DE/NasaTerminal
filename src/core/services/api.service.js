@@ -14,15 +14,15 @@ axios.defaults.params = {
 }
 
 const ApiService = {
-  async Apod(params = {}) {
+  Apod: async (params = {}) => {
     return await axios.get(endpoints[APOD_COMMAND], {params: params})
   },
 
-  async AsteroidsFeed(params = {}) {
+  AsteroidsFeed: async (params = {}) => {
     return await axios.get(endpoints[ASTEROIDS_FEED_COMMAND], {params: params})
   },
 
-  async AsteroidsLookup(params = {}) {
+  AsteroidsLookup: async (params = {}) => {
     return await axios.get(endpoints[ASTEROIDS_LOOKUP_COMMAND], {params: params})
   }
 }

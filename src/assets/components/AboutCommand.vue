@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="unknowCommand">
-            <UnknowCommandReport :textInput="invalidComand"/>
+            <UnknowCommandReport :textInput="invalidComand" />
         </div>
         <table class="params_list" v-else>
             <thead>

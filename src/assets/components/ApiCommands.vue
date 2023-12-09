@@ -25,7 +25,8 @@ import {
     APOD_COMMAND,
     ASTEROIDS_FEED_COMMAND,
     ASTEROIDS_LOOKUP_COMMAND,
-    REQUEST_TEXT_ANIME
+    REQUEST_TEXT_ANIME,
+    WRONG_MGS_TEXT
 } from '@/core/helpers/constants.js';
 import ApiService from '@/core/services/api.service.js'
 import { sleep, randomNumber } from "@/core/helpers/utils.js"
@@ -94,6 +95,14 @@ export default {
 
             var endpoint = this.getEndpoint(command)
 
+            if (endpoint == '') {
+                this.requestError = {
+                    show: true,
+                    msg: WRONG_MGS_TEXT
+                }
+                return;
+            }
+
             this.startRequest = true
             await this.animationText()
 
@@ -105,13 +114,25 @@ export default {
 
                     this.handlerData(data)
                 })
-                .catch(({ response }) => {
-                    let msgError = response.data.msg || error
+                .catch(error => {
                     this.requestError = {
                         show: true,
-                        msg: msgError
+                        msg: this.getErrorAxios(error)
                     }
                 })
+        },
+        getErrorAxios(error) {
+            var msgError = error
+
+            try {
+                msgError = error.response.data.msg
+            } catch (e) { }
+
+            try {
+                msgError = error.message
+            } catch (e) { }
+
+            return msgError
         },
         handlerData(data) {
             if (Array.isArray(data)) {
