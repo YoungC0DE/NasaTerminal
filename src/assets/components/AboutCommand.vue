@@ -13,7 +13,7 @@
             </thead>
             <tbody>
                 <tr v-for="(param, index) in params" :key="index">
-                    <td class="param_name">-{{ param.name }}</td>
+                    <td class="param_name">--{{ param.name }}</td>
                     <td>{{ param.format }}</td>
                     <td class="param_description">{{ param.description }}</td>
                 </tr>

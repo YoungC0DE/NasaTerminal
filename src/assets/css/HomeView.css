@@ -50,6 +50,7 @@ p {
   background: none;
   outline: none;
   cursor: default;
+  width: 100%;
 }
 
 input,

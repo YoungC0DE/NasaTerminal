@@ -10,6 +10,9 @@
                             <p>{{ agent }}</p>
                             <div>{{ data }}</div>
                         </div>
+                        <div v-if="isApiCommand(data)" class="command-output">
+                            <ApiCommands :command="data.trim()" />
+                        </div>
                         <div v-if="resolveData(data, helpCommand)" class="command-output">
                             <HelpCommand />
                         </div>
@@ -25,7 +28,7 @@
                     </div>
                     <div class="input">
                         <p>{{ agent }}</p>
-                        <input type="text" ref="inputText" v-model="input" :maxlength="maxlengthInput" :max="maxlengthInput">
+                        <input type="text" ref="inputText" v-model="input">
                     </div>
                 </div>
             </div>
@@ -35,21 +38,29 @@
 
 <script>
 import HelpCommand from '@/assets/components/HelpCommand.vue';
-import { HELP_COMMAND, CLEAR_COMMAND, ABOUT_COMMAND, WHOAMI_COMMAND } from '@/core/helpers/constants.js';
+import {
+    HELP_COMMAND,
+    CLEAR_COMMAND,
+    ABOUT_COMMAND,
+    WHOAMI_COMMAND,
+    APOD_COMMAND,
+    ASTEROIDS_FEED_COMMAND,
+    ASTEROIDS_LOOKUP_COMMAND
+} from '@/core/helpers/constants.js';
 import HeaderComponent from '@/assets/components/HeaderComponent.vue';
 import UnknowCommandReport from '@/assets/components/UnknowCommandReport.vue';
 import AboutCommand from '@/assets/components/AboutCommand.vue';
 import WhoamiCommand from '@/assets/components/WhoamiCommand.vue';
 import IntroHeader from '@/assets/components/IntroHeader.vue';
+import ApiCommands from '../assets/components/ApiCommands.vue';
 
 export default {
-    components: { HelpCommand, HeaderComponent, UnknowCommandReport, AboutCommand, IntroHeader, WhoamiCommand },
+    components: { HelpCommand, HeaderComponent, UnknowCommandReport, AboutCommand, IntroHeader, WhoamiCommand, ApiCommands },
     data() {
         return {
             input: '',
             agent: 'nasa@root:~#',
             history: [],
-            maxlengthInput: 15,
             helpCommand: HELP_COMMAND,
             aboutCommand: ABOUT_COMMAND,
             whoamiCommand: WHOAMI_COMMAND,
@@ -100,26 +111,42 @@ export default {
                 HELP_COMMAND,
                 ABOUT_COMMAND,
                 CLEAR_COMMAND,
-                WHOAMI_COMMAND
+                WHOAMI_COMMAND,
+                APOD_COMMAND,
+                ASTEROIDS_FEED_COMMAND,
+                ASTEROIDS_LOOKUP_COMMAND
             ]
 
-            if (commands.includes(newData[0])) {
+            if (
+                commands.includes(newData[0]) ||
+                commands.includes(newData[0].toUpperCase())
+            ) {
                 return false
             }
 
             return true
-        }
-    },
-    watch: {
-        'input': {
-            handler(newVal, oldval) {
-                if (newVal.length >= this.maxlengthInput) {
-                    this.input = oldval;
-                    return
-                }
+        },
+        isApiCommand(data = '') {
+            if (data == '') {
+                return false
             }
+
+            let commands = [
+                APOD_COMMAND,
+                ASTEROIDS_FEED_COMMAND,
+                ASTEROIDS_LOOKUP_COMMAND
+            ]
+
+            let newData = data.trim().split(' ')
+            newData = newData[0] ?? ''
+
+            if (commands.includes(newData.toUpperCase())) {
+                return true
+            }
+
+            return false
         }
-    },
+    }
 }
 </script>
 

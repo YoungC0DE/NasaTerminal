@@ -5,7 +5,7 @@ import {
 } from '@/core/helpers/constants.js'
 
 export default {
-  [APOD_COMMAND]: 'https://api.nasa.gov/planetary/apod',
-  [ASTEROIDS_FEED_COMMAND]: 'https://api.nasa.gov/neo/rest/v1/feed',
-  [ASTEROIDS_LOOKUP_COMMAND]: 'https://api.nasa.gov/neo/rest/v1/neo'
+  [APOD_COMMAND]: '/planetary/apod',
+  [ASTEROIDS_FEED_COMMAND]: '/neo/rest/v1/feed',
+  [ASTEROIDS_LOOKUP_COMMAND]: '/neo/rest/v1/neo'
 }
