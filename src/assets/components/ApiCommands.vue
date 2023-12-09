@@ -105,10 +105,11 @@ export default {
 
                     this.handlerData(data)
                 })
-                .catch(error => {
+                .catch(({ response }) => {
+                    let msgError = response.data.msg || error
                     this.requestError = {
                         show: true,
-                        msg: error
+                        msg: msgError
                     }
                 })
         },
