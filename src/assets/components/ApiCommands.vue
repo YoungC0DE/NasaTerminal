@@ -138,5 +138,8 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    background-color: #649a6421;
+    padding: 1rem;
+    border-radius: 8px;
 }
 </style>
