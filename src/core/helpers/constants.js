@@ -11,9 +11,9 @@ export const REFERENCES = {
 }
 
 export const THEMES = [
-  {id: 1, name: 'green'},
-  {id: 2, name: 'yellow'},
-  {id: 3, name: 'red'},
+  { id: 1, name: 'green' },
+  { id: 2, name: 'yellow' },
+  { id: 3, name: 'red' }
 ]
 
 export const APOD_COMMAND = 'APOD'
@@ -26,7 +26,11 @@ export const COMMANDS = [
     details:
       'This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other applications.',
     params: [
-      { name: 'date', format: 'YYYY-MM-DD', description: 'The date of the APOD image to retrieve.' },
+      {
+        name: 'date',
+        format: 'YYYY-MM-DD',
+        description: 'The date of the APOD image to retrieve.'
+      },
       {
         name: 'start_date',
         format: 'YYYY-MM-DD',
@@ -72,7 +76,20 @@ export const COMMANDS = [
         name: 'asteroid_id',
         format: 'int',
         description: 'Asteroid SPK-ID correlates to the NASA JPL small body'
-      },
+      }
     ]
-  },
+  }
+]
+
+export const REQUEST_TEXT_ANIME = [
+  'Start request for Nasa API...<br>',
+  '...<br>',
+  'Trying to Authenticate ....<br>',
+  '...<br>',
+  'Autenticate sucessful ...<br>',
+  '...<br>',
+  'Fetching data ...<br>',
+  '...<br>',
+  '..<br>',
+  '<br>'
 ]
