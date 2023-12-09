@@ -4,8 +4,16 @@
             Resquest error: {{ requestError.msg }}
         </div>
         <span v-html="loadRequestText"></span>
-        <div class="api-commands" v-if="apiResult.length > 0">
-            <span v-for="(data, index) in apiResult" :key="index">
+        <div v-if="apiResult.length > 0">
+            <div v-if="hasMultipleResults">
+                <div v-for="(data, index) in apiResult" :key="index" class="api-commands" style="margin-bottom: 2rem;">
+                    <DecoratorLine :caracter="'-'" :expand="true" />
+                    <span v-for="(data2, index2) in data" :key="index2">
+                        <b>{{ index2 }}:</b> {{ data2 }}
+                    </span>
+                </div>
+            </div>
+            <span v-for="(data, index) in apiResult" :key="index + 99" v-else class="api-commands">
                 <b>{{ data.value }}:</b> {{ data.text }}
             </span>
         </div>
@@ -20,9 +28,11 @@ import {
 } from '@/core/helpers/constants.js';
 import ApiService from '@/core/services/api.service.js'
 import { sleep, randomNumber } from "@/core/helpers/utils.js"
+import DecoratorLine from "@/assets/components/DecoratorLine.vue";
 
 export default {
     name: 'ApiCommands',
+    components: { DecoratorLine },
     props: {
         command: { type: String, required: true },
         params: { type: String, default: '' },
@@ -31,6 +41,7 @@ export default {
         return {
             apiResult: [],
             startRequest: false,
+            hasMultipleResults: false,
             loadRequestText: '',
             requestError: {
                 show: false,
@@ -57,7 +68,7 @@ export default {
             ]
 
             for (let lineText of requestText) {
-                let randomTime = randomNumber(500, 2000)
+                let randomTime = randomNumber(500, 1000)
                 await sleep(randomTime)
                 for (let text of lineText) {
                     await sleep(10)
@@ -99,26 +110,14 @@ export default {
                         return;
                     }
 
-                    for (let index in data) {
-                        
-                        if (Array.isArray(index)) {
-                            for (let index2 in index) {
-                                let objectData = {
-                                    value: index2,
-                                    text: index[index2]
-                                }
-                                this.apiResult.push(objectData)
-                            }
-                            return;
-                        }
-
-                        let objectData = {
-                            value: index,
-                            text: data[index]
-                        }
-
-                        this.apiResult.push(objectData)
+                    if (Array.isArray(data)) {
+                        this.apiResult = data
+                        this.hasMultipleResults = true;
+                        return;
                     }
+
+                    this.hasMultipleResults = false;
+                    this.handlerData(data)
                 })
                 .catch(error => {
                     this.requestError = {
@@ -126,6 +125,18 @@ export default {
                         msg: error
                     }
                 })
+        },
+        handlerData(object) {
+            for (let index in object) {
+                let objectData = {
+                    value: index,
+                    text: object[index]
+                }
+
+                this.apiResult.push(objectData)
+            }
+
+            console.log(this.apiResult, this.hasMultipleResults)
         }
     }
 }
