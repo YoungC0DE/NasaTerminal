@@ -100,6 +100,18 @@ export default {
                     }
 
                     for (let index in data) {
+                        
+                        if (Array.isArray(index)) {
+                            for (let index2 in index) {
+                                let objectData = {
+                                    value: index2,
+                                    text: index[index2]
+                                }
+                                this.apiResult.push(objectData)
+                            }
+                            return;
+                        }
+
                         let objectData = {
                             value: index,
                             text: data[index]

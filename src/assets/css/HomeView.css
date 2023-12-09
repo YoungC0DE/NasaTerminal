@@ -32,6 +32,7 @@
   box-sizing: border-box;
   overflow-y: scroll;
   line-height: 1.2;
+  padding-bottom: 4rem;
 }
 
 p {
@@ -91,5 +92,13 @@ input,
   .screen {
     font-size: 1rem;
     padding: 1rem;
+  }
+
+  input {
+    padding: 0px;
+  }
+
+  .screen {
+    padding-bottom: 4rem;
   }
 }
