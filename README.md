@@ -23,6 +23,6 @@
 
 <h3>Nasa Api</h3>
  
-- <a href='https://api.nasa.gov/#APIList' target='_blank'>https://api.nasa.gov/</a>
+- https://api.nasa.gov/
 
 @youngcode
