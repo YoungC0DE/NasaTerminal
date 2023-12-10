@@ -6,7 +6,7 @@
                 <div class="screen" @click="focusOnInput" @keypress.enter="run" ref="autoScroll">
                     <IntroHeader />
                     <div class="history" v-for="(data, index) in history" :key="index">
-                        <div class="input">
+                        <div class="input-historic">
                             <p>{{ agent }}</p>
                             <div>{{ data }}</div>
                         </div>

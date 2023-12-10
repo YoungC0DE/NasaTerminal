@@ -39,14 +39,20 @@ p {
   margin: 0;
 }
 
-.input {
+.input,
+.input-historic {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
 
-.input input {
+html[typing='true'] .input {
+  display: none;
+}
+
+.input input,
+.input-historic input {
   border: none;
   background: none;
   outline: none;
@@ -71,7 +77,7 @@ input,
 }
 
 .screen::-webkit-scrollbar-track {
-  background-color: var(--computer-bg)
+  background-color: var(--computer-bg);
 }
 
 .params li {

@@ -29,7 +29,7 @@ import {
     WRONG_MGS_TEXT
 } from '@/core/helpers/constants.js';
 import ApiService from '@/core/services/api.service.js'
-import { sleep, randomNumber } from "@/core/helpers/utils.js"
+import { sleep, randomNumber, toggleInput } from "@/core/helpers/utils.js"
 import DecoratorLine from "@/assets/components/DecoratorLine.vue";
 
 export default {
@@ -103,6 +103,7 @@ export default {
                 return;
             }
 
+            toggleInput();
             this.startRequest = true
             await this.animationText()
 
@@ -120,6 +121,7 @@ export default {
                         msg: this.getErrorAxios(error)
                     }
                 })
+            toggleInput();
         },
         getErrorAxios(error) {
             var msgError = error
