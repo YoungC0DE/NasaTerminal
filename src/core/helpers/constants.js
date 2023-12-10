@@ -82,11 +82,11 @@ export const COMMANDS = [
 ]
 
 export const REQUEST_TEXT_ANIME = [
-  'Start request for Nasa API...<br>',
+  'Starting request to Nasa API...<br>',
   '...<br>',
   'Trying to Authenticate ....<br>',
   '...<br>',
-  'Autenticate sucessful ...<br>',
+  'Authentication successful ...<br>',
   '...<br>',
   'Fetching data ...<br>',
   '...<br>',
@@ -95,6 +95,6 @@ export const REQUEST_TEXT_ANIME = [
 ]
 
 export const INTRO_TEXT =
-  'This system was made with the purpose of getting some information about nasa, using nasa API. All the information was available for free by nasa.'
-export const INTRO_TITLE = 'Welcome to Nasa Terminal'
+  'This system was made with the aim of obtaining information about space using the NASA API. All information was made available free of charge by NASA.'
+export const INTRO_TITLE = 'Welcome to the NASA Terminal'
 export const WRONG_MGS_TEXT = 'Incorrenct request'
