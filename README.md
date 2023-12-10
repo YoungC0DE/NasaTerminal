@@ -3,7 +3,7 @@
 > Created to emulate a web terminal,<br>
 > With this terminal it is possible to obtain data from the NASA API.
 
-<img src="https://github.com/YoungC0DE/NasaTerminal/assets/68437256/59966ce0-5901-47a3-9fa2-e3b35feafd5a" width="500">
+<img src="https://github.com/YoungC0DE/NasaTerminal/assets/68437256/0c14b631-8e13-4305-845c-d283a18a2c66" width="500">
 
 [![NasaTerminal](https://img.shields.io/badge/TaskList-Visit-9cf?style=for-the-badge&logo=vercel)](https://nasa-terminal.vercel.app/)
 
