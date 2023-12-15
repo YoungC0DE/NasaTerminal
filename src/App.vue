@@ -23,19 +23,19 @@ import { RouterView } from 'vue-router'
 
 html[data-theme="green"] {
   --text-color: #27c93f;
-  --color-icon: 204deg
-  --bg-api-result: #649a6421
+  --color-icon: 204deg;
+  --bg-api-result: #649a6421;
 }
 
 html[data-theme="yellow"] {
   --text-color: #ffbd2e;
-  --color-icon: -217deg
-  --bg-api-result: #919a6421
+  --color-icon: -217deg;
+  --bg-api-result: #919a6421;
 }
 
 html[data-theme="red"] {
   --text-color: #ff5f56;
-  --color-icon: 107deg
-  --bg-api-result: #9a646421
+  --color-icon: 107deg;
+  --bg-api-result: #9a646421;
 }
 </style>

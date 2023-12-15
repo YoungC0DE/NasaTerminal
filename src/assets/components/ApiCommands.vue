@@ -157,7 +157,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .api-commands {
     display: flex;
     flex-direction: column;
