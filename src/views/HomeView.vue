@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import HelpCommand from '@/assets/components/HelpCommand.vue';
+import HelpCommand from '@/assets/components/nativeCommands/HelpCommand.vue';
 import {
     HELP_COMMAND,
     CLEAR_COMMAND,
@@ -49,10 +49,10 @@ import {
 } from '@/core/helpers/constants.js';
 import HeaderComponent from '@/assets/components/HeaderComponent.vue';
 import UnknowCommandReport from '@/assets/components/UnknowCommandReport.vue';
-import AboutCommand from '@/assets/components/AboutCommand.vue';
-import WhoamiCommand from '@/assets/components/WhoamiCommand.vue';
+import AboutCommand from '@/assets/components/nativeCommands/AboutCommand.vue';
+import WhoamiCommand from '@/assets/components/nativeCommands/WhoamiCommand.vue';
 import IntroHeader from '@/assets/components/IntroHeader.vue';
-import ApiCommands from '../assets/components/ApiCommands.vue';
+import ApiCommands from '@/assets/components/ApiCommands/Apod.vue';
 
 export default {
     components: { HelpCommand, HeaderComponent, UnknowCommandReport, AboutCommand, IntroHeader, WhoamiCommand, ApiCommands },

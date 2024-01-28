@@ -16,3 +16,17 @@ export const toggleInput = () => {
 
   htmlElement.setAttribute('typing', 'false')
 }
+
+export const date = () => {
+  const D = new Date();
+
+  var hours = `${D.getHours()}:${D.getMinutes()}`;
+  var month = D.getMonth() + 1;
+  var date = `${D.getFullYear()}-${month < 10 ? '0' + month : month}-${D.getDate()}`
+
+  return {
+    hours: hours,
+    date: date,
+    fullDate: D
+  }
+}
