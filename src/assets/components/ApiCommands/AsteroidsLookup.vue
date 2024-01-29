@@ -22,13 +22,11 @@
 
 <script>
 import {
-    APOD_COMMAND,
-    ASTEROIDS_FEED_COMMAND,
     ASTEROIDS_LOOKUP_COMMAND,
-    REQUEST_TEXT_ANIME,
-    WRONG_MGS_TEXT
+    REQUEST_TEXT_ANIME
 } from '@/core/helpers/constants.js';
 import ApiService from '@/core/services/api.service.js'
+import endpoints from '@/core/config/endpoints.js'
 import { sleep, randomNumber, toggleInput } from "@/core/helpers/utils.js"
 import DecoratorLine from "@/assets/components/DecoratorLine.vue";
 
@@ -36,8 +34,7 @@ export default {
     name: 'ApiCommands',
     components: { DecoratorLine },
     props: {
-        command: { type: String, required: true },
-        params: { type: String, default: '' },
+        params: { type: Object },
     },
     data() {
         return {
@@ -65,49 +62,12 @@ export default {
                 }
             }
         },
-        getEndpoint(command) {
-            var endpoint = ''
-            if (command == APOD_COMMAND) {
-                endpoint = 'Apod'
-            }
-
-            if (command == ASTEROIDS_FEED_COMMAND) {
-                endpoint = 'AsteroidsFeed'
-            }
-
-            if (command == ASTEROIDS_LOOKUP_COMMAND) {
-                endpoint = 'AsteroidsLookup'
-            }
-
-            return endpoint
-        },
         async getApiData() {
-            var parsedCommand = this.command.split('--')
-            var command = parsedCommand.shift().trim().toUpperCase()
-            var params = {}
-
-            parsedCommand.forEach(item => {
-                let param = item.split('=')[0].trim()
-                let value = item.split('=')[1].trim()
-
-                params[param] = value.replaceAll("'", '')
-            })
-
-            var endpoint = this.getEndpoint(command)
-
-            if (endpoint == '') {
-                this.requestError = {
-                    show: true,
-                    msg: WRONG_MGS_TEXT
-                }
-                return;
-            }
-
             toggleInput();
             this.startRequest = true
             await this.animationText()
 
-            ApiService[endpoint](params)
+            ApiService.get(endpoints[ASTEROIDS_LOOKUP_COMMAND], {params: this.params})
                 .then(({ data }) => {
                     if (!data) {
                         return;
@@ -139,19 +99,10 @@ export default {
         handlerData(data) {
             if (Array.isArray(data)) {
                 this.apiResult = data
-                this.hasMultipleResults = true;
                 return;
             }
 
-            this.hasMultipleResults = false;
-            for (let index in data) {
-                let objectData = {
-                    value: index,
-                    text: data[index]
-                }
-
-                this.apiResult.push(objectData)
-            }
+            this.apiResult.push(data)
         }
     }
 }

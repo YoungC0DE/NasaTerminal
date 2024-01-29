@@ -22,11 +22,12 @@ export const date = () => {
 
   var hours = `${D.getHours()}:${D.getMinutes()}`;
   var month = D.getMonth() + 1;
-  var date = `${D.getFullYear()}-${month < 10 ? '0' + month : month}-${D.getDate()}`
+  var day = D.getDate();
+  var date = `${D.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`
 
   return {
-    hours: hours,
-    date: date,
+    currentHour: hours,
+    currentDate: date,
     fullDate: D
   }
 }

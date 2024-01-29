@@ -31,21 +31,16 @@
 <script>
 import {
     APOD_COMMAND,
-    REQUEST_TEXT_ANIME,
-    WRONG_MGS_TEXT
+    REQUEST_TEXT_ANIME
 } from '@/core/helpers/constants.js';
 import endpoints from '@/core/config/endpoints.js'
 import ApiService from '@/core/services/api.service.js'
-import { sleep, randomNumber, toggleInput, date } from "@/core/helpers/utils.js"
-import DecoratorLine from "@/assets/components/DecoratorLine.vue";
-import IcDocImage from "@/assets/icons/ic-doc-image.vue";
+import { sleep, randomNumber, toggleInput } from "@/core/helpers/utils.js"
 
 export default {
     name: 'ApiCommands',
-    components: { DecoratorLine, IcDocImage },
     props: {
-        command: { type: String, required: true },
-        params: { type: String, default: '' },
+        params: { type: Object },
     },
     data() {
         return {
@@ -73,30 +68,11 @@ export default {
             }
         },
         async getApiData() {
-            var parsedCommand = this.command.split('--')
-            var command = parsedCommand.shift().trim().toUpperCase()
-            var params = {}
-
-            parsedCommand.forEach(item => {
-                let param = item.split('=')[0].trim()
-                let value = item.split('=')[1].trim()
-
-                params[param] = value.replaceAll("'", '')
-            })
-
-            if (command == '') {
-                this.requestError = {
-                    show: true,
-                    msg: WRONG_MGS_TEXT
-                }
-                return;
-            }
-
             toggleInput();
             this.startRequest = true
             await this.animationText()
 
-            ApiService.get(endpoints[APOD_COMMAND], { params: params })
+            ApiService.get(endpoints[APOD_COMMAND], { params: this.params })
                 .then(({ data }) => {
                     if (!data) {
                         return;
@@ -142,7 +118,7 @@ export default {
 .api-commands {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
     background-color: var(--bg-api-result);
     padding: 1rem;
     border-radius: 8px;

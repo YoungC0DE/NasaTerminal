@@ -52,7 +52,7 @@ import UnknowCommandReport from '@/assets/components/UnknowCommandReport.vue';
 import AboutCommand from '@/assets/components/nativeCommands/AboutCommand.vue';
 import WhoamiCommand from '@/assets/components/nativeCommands/WhoamiCommand.vue';
 import IntroHeader from '@/assets/components/IntroHeader.vue';
-import ApiCommands from '@/assets/components/ApiCommands/Apod.vue';
+import ApiCommands from '@/assets/components/getApiCommand.vue';
 
 export default {
     components: { HelpCommand, HeaderComponent, UnknowCommandReport, AboutCommand, IntroHeader, WhoamiCommand, ApiCommands },

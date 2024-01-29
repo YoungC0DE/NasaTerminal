@@ -4,17 +4,9 @@
         <b v-if="requestError.show">
             {{ requestError.msg }}
         </b>
-        <div v-if="apiResult.length > 0" :class="hasMultipleResults ? '' : 'api-commands'">
-            <div v-if="hasMultipleResults">
-                <div v-for="(data, index) in apiResult" :key="index" class="api-commands" style="margin-bottom: 2rem;">
-                    <DecoratorLine :caracter="'-'" />
-                    <span v-for="(data2, index2) in data" :key="index2">
-                        <b>{{ index2 }}:</b> {{ data2 }}
-                    </span>
-                </div>
-            </div>
-            <span v-for="(data, index) in apiResult" :key="index + 99" v-else>
-                <b>{{ data.value }}:</b> {{ data.text }}
+        <div v-for="(data, index) in apiResult" :key="index" class="api-commands" style="margin-bottom: 2rem;">
+            <span v-for="(data2, index2) in data" :key="index2">
+                <b>{{ index2 }}:</b> {{ data2 }}
             </span>
         </div>
     </div>
@@ -22,28 +14,22 @@
 
 <script>
 import {
-    APOD_COMMAND,
     ASTEROIDS_FEED_COMMAND,
-    ASTEROIDS_LOOKUP_COMMAND,
-    REQUEST_TEXT_ANIME,
-    WRONG_MGS_TEXT
+    REQUEST_TEXT_ANIME
 } from '@/core/helpers/constants.js';
+import endpoints from '@/core/config/endpoints.js'
 import ApiService from '@/core/services/api.service.js'
-import { sleep, randomNumber, toggleInput } from "@/core/helpers/utils.js"
-import DecoratorLine from "@/assets/components/DecoratorLine.vue";
+import { sleep, randomNumber, toggleInput, date } from "@/core/helpers/utils.js"
 
 export default {
     name: 'ApiCommands',
-    components: { DecoratorLine },
     props: {
-        command: { type: String, required: true },
-        params: { type: String, default: '' },
+        params: { type: Object },
     },
     data() {
         return {
             apiResult: [],
             startRequest: false,
-            hasMultipleResults: false,
             loadRequestText: '',
             requestError: {
                 show: false,
@@ -65,49 +51,16 @@ export default {
                 }
             }
         },
-        getEndpoint(command) {
-            var endpoint = ''
-            if (command == APOD_COMMAND) {
-                endpoint = 'Apod'
-            }
-
-            if (command == ASTEROIDS_FEED_COMMAND) {
-                endpoint = 'AsteroidsFeed'
-            }
-
-            if (command == ASTEROIDS_LOOKUP_COMMAND) {
-                endpoint = 'AsteroidsLookup'
-            }
-
-            return endpoint
-        },
         async getApiData() {
-            var parsedCommand = this.command.split('--')
-            var command = parsedCommand.shift().trim().toUpperCase()
-            var params = {}
-
-            parsedCommand.forEach(item => {
-                let param = item.split('=')[0].trim()
-                let value = item.split('=')[1].trim()
-
-                params[param] = value.replaceAll("'", '')
-            })
-
-            var endpoint = this.getEndpoint(command)
-
-            if (endpoint == '') {
-                this.requestError = {
-                    show: true,
-                    msg: WRONG_MGS_TEXT
-                }
-                return;
-            }
-
             toggleInput();
             this.startRequest = true
             await this.animationText()
 
-            ApiService[endpoint](params)
+            if (!this.params.start_date) {
+                this.params.start_date = date().currentDate;
+            }
+
+            ApiService.get(endpoints[ASTEROIDS_FEED_COMMAND], {params: this.params})
                 .then(({ data }) => {
                     if (!data) {
                         return;
@@ -139,19 +92,10 @@ export default {
         handlerData(data) {
             if (Array.isArray(data)) {
                 this.apiResult = data
-                this.hasMultipleResults = true;
                 return;
             }
 
-            this.hasMultipleResults = false;
-            for (let index in data) {
-                let objectData = {
-                    value: index,
-                    text: data[index]
-                }
-
-                this.apiResult.push(objectData)
-            }
+            this.apiResult.push(data)
         }
     }
 }
