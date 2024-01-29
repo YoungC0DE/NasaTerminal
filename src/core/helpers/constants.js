@@ -56,18 +56,18 @@ export const COMMANDS = [
       }
     ]
   },
-  {
-    name: ASTEROIDS_FEED_COMMAND,
-    details: 'Retrieve a list of Asteroids based on their closest approach date to Earth',
-    params: [
-      {
-        name: 'start_date',
-        format: 'YYYY-MM-DD',
-        description: 'Starting date for asteroid search'
-      },
-      { name: 'end_date', format: 'YYYY-MM-DD', description: 'Ending date for asteroid search' }
-    ]
-  },
+  // {
+  //   name: ASTEROIDS_FEED_COMMAND,
+  //   details: 'Retrieve a list of Asteroids based on their closest approach date to Earth',
+  //   params: [
+  //     {
+  //       name: 'start_date',
+  //       format: 'YYYY-MM-DD',
+  //       description: 'Starting date for asteroid search'
+  //     },
+  //     { name: 'end_date', format: 'YYYY-MM-DD', description: 'Ending date for asteroid search' }
+  //   ]
+  // },
   // {
   //   name: ASTEROIDS_LOOKUP_COMMAND,
   //   details: 'Lookup a specific Asteroid based on its NASA JPL small body (SPK-ID) ID',
